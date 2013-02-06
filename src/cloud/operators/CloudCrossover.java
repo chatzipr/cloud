@@ -45,7 +45,11 @@ public class CloudCrossover implements Variation {
 		int selectedsize = (size1 < size2) ? size1 : size2;
 
 		// select cutting points
-		int cuttingPoint = PRNG.nextInt(selectedsize);
+		int cuttingPoint = PRNG.nextInt(1, selectedsize);
+		
+		System.out.println("Cutting Point " + cuttingPoint);
+		
+		
 
 		ArrayList<PMChromosome> pmsOffspring1 = new ArrayList<PMChromosome>();
 		ArrayList<PMChromosome> pmsOffspring2 = new ArrayList<PMChromosome>();

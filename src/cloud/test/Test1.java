@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import cloud.init.RandomCloudInitializer;
+import cloud.operators.CloudCrossover;
 import cloud.problem.CloudChromosomeVariable;
 import cloud.problem.PMChromosome;
 import cloud.problem.VM;
@@ -15,7 +16,7 @@ import junit.framework.TestSuite;
 public class Test1 extends TestCase {
 
 	protected int numberOfVMs = 12;
-	protected int numberOfPMs = 5;
+	protected int numberOfPMs = 7;
 
 	protected int mipsTotalCapacity = 50;
 
@@ -36,12 +37,24 @@ public class Test1 extends TestCase {
 
 		RandomCloudInitializer initializer = new RandomCloudInitializer(null, 0);
 
-		CloudChromosomeVariable cloud = new CloudChromosomeVariable(
+		CloudChromosomeVariable cloud1 = new CloudChromosomeVariable(
 				numberOfVMs, mipsTotalCapacity);
 
-		initializer.storeIndividualToFile(cloud, "cloud_output/out.txt");
+		initializer.storeIndividualToFile(cloud1, "cloud_output/out.txt");
+		
+		CloudChromosomeVariable cloud2 = new CloudChromosomeVariable(
+				numberOfVMs, mipsTotalCapacity);
 
-		assertTrue(cloud.getPMGenes() != null);
+		initializer.storeIndividualToFile(cloud2, "cloud_output/out.txt");
+
+		CloudCrossover crossover = new CloudCrossover(0.5);
+		crossover.evolve(cloud1, cloud2);
+		
+		initializer.storeIndividualToFile(cloud1, "cloud_output/out.txt");
+		initializer.storeIndividualToFile(cloud2, "cloud_output/out.txt");
+		
+	
+		
 	}
 
 }

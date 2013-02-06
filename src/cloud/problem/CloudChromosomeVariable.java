@@ -22,7 +22,6 @@ public class CloudChromosomeVariable implements Variable {
 	 */
 	private static final long serialVersionUID = 4220606602150453469L;
 
-	// int id; // Chromosome id.
 
 	private ArrayList<PMChromosome> gene; // lists all PM sub-genes.
 
@@ -33,7 +32,7 @@ public class CloudChromosomeVariable implements Variable {
 	 * @param gene
 	 */
 	public CloudChromosomeVariable(ArrayList<PMChromosome> gene) {
-		// this.id = id;
+
 		this.gene = gene;
 
 	}
@@ -68,12 +67,12 @@ public class CloudChromosomeVariable implements Variable {
 
 			vmChromosomeList = new ArrayList<VMChromosome>();
 			// Make a chromosome containing the VMs.
-			VMChromosome vmChromosome = new VMChromosome(vmGeneId, lastGene,
+			VMChromosome vmChromosome = new VMChromosome( lastGene,
 					cardinality, mipsCapacity);
 			vmChromosomeList.add(vmChromosome);
 
 			// Create PMChromosome to host VMChromosome
-			PMChromosome pmChromosome = new PMChromosome(pmGeneId, pmGeneId,
+			PMChromosome pmChromosome = new PMChromosome( 
 					mipsCapacity, vmChromosomeList);
 
 			pmChromosomeList.add(pmChromosome);

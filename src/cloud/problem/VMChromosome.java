@@ -18,8 +18,6 @@ public class VMChromosome implements Serializable {
 	 */
 	private static final long serialVersionUID = 7183978958617807868L;
 
-	private int id; // VM Chromosome id.
-
 	private ArrayList<VM> gene; // lists all VMs.
 
 	/**
@@ -28,8 +26,8 @@ public class VMChromosome implements Serializable {
 	 * @param id
 	 * @param gene
 	 */
-	public VMChromosome(int id, ArrayList<VM> gene) {
-		this.id = id;
+	public VMChromosome(ArrayList<VM> gene) {
+
 		this.gene = gene;
 
 	}
@@ -43,9 +41,8 @@ public class VMChromosome implements Serializable {
 	 * @param minMipsSize
 	 * @param maxMipsSize
 	 */
-	public VMChromosome(int id, int lastGene, int size, int maxMipsSize) {
+	public VMChromosome(int lastGene, int size, int maxMipsSize) {
 
-		this.id = id;
 		int freeMips = maxMipsSize;
 		int requiredMips = 0;
 
@@ -56,21 +53,13 @@ public class VMChromosome implements Serializable {
 
 			requiredMips = PRNG.nextInt(0, freeMips);
 
-			vmlist.add(new VM(i, requiredMips));
+			vmlist.add(new VM(requiredMips));
 
 			freeMips = freeMips - requiredMips;
 		}
 
 		this.gene = vmlist;
 
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public ArrayList<VM> getGene() {

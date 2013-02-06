@@ -9,25 +9,20 @@ public class VM implements Serializable {
 	 */
 	private static final long serialVersionUID = -3485795313814093993L;
 
-	private int vmId;
 	private int mips;
 
-	public VM(int vmId, int mips) {
-		this.setVmId(vmId);
+	/**
+	 * VM Constructor.
+	 * @param mips
+	 */
+	public VM(int mips) {
+
 		this.setMips(mips);
 	}
 
-	public VM createVM(int id, int mips) {
-		VM vm = new VM(id, mips);
+	public VM createVM(int mips) {
+		VM vm = new VM(mips);
 		return vm;
-	}
-
-	public void setVmId(int vmId) {
-		this.vmId = vmId;
-	}
-
-	public int getVmId() {
-		return vmId;
 	}
 
 	public void setMips(int mips) {

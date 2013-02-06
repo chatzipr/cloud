@@ -31,20 +31,10 @@ public class PMChromosome implements Serializable {
 	 * @param pmSubGene
 	 * @param vmSubGene
 	 */
-	public PMChromosome(int id, int pmId, int mips, ArrayList<VMChromosome> gene) {
+	public PMChromosome(int mips, ArrayList<VMChromosome> gene) {
 
-		this.setId(id);
-		this.setPmId(pmId);
-		this.mips=mips;
+		this.mips = mips;
 		this.setGene(gene);
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public void setGene(ArrayList<VMChromosome> gene) {
@@ -53,14 +43,6 @@ public class PMChromosome implements Serializable {
 
 	public ArrayList<VMChromosome> getGene() {
 		return gene;
-	}
-
-	public void setPmId(int pmId) {
-		this.pmId = pmId;
-	}
-
-	public int getPmId() {
-		return pmId;
 	}
 
 	public int getMips() {

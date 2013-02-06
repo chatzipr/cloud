@@ -77,29 +77,29 @@ public class RandomCloudInitializer implements Initialization {
 			String filepath) throws IOException {
 
 		String candidate = "";
-		FileWriter fstream = new FileWriter(filepath);
+		FileWriter fstream = new FileWriter(filepath, true);
 		BufferedWriter out = new BufferedWriter(fstream);
 		String vmIds = "";
 		String pmId = null;
+		int pmCounter = 1;
+		int vmCounter = 1;
 
 		// Print each individual
 		for (PMChromosome pm : cloud.getPMGenes()) {
-
+			
+			
 			vmIds = "";
-			pmId = Integer.toString(pm.getPmId());
+			pmId = Integer.toString(pmCounter);
 
 			ArrayList<VMChromosome> vmChromosome = pm.getGene();
 
 			for (VMChromosome chromosome : vmChromosome) {
-
-				System.out.println(" +++++ PM Chromosome with id= "
-						+ pm.getId() + " ++++++ and vm chromosome with id="
-						+ chromosome.getId());
-
+				vmCounter = 1;
+				
 				for (VM vm : chromosome.getGene()) {
-					vmIds = vmIds + Integer.toString(vm.getVmId()) + delimiter1
+					vmIds = vmIds + Integer.toString(vmCounter) + delimiter1
 							+ Integer.toString(vm.getMips()) + delimiter2;
-
+					vmCounter++;
 				}
 
 				vmIds = vmIds + delimiter2;
@@ -108,11 +108,13 @@ public class RandomCloudInitializer implements Initialization {
 			candidate = candidate + delimiter1 + pmId + space + delimiter1
 					+ Integer.toString(pm.getMips()) + delimiter2 + space
 					+ delimiter1 + vmIds + space + delimiter2 + delimiter3;
-			System.out.println(candidate);
+			
+			pmCounter++;
 
 		}
 
-		out.append("Candidate:" +   candidate);
+		out.append("Candidate:" + candidate + "\n");
+		System.out.println(candidate);
 		out.close();
 
 	}
