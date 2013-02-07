@@ -13,7 +13,6 @@ import org.moeaframework.core.Variable;
 import cloud.problem.CloudChromosomeVariable;
 import cloud.problem.PMChromosome;
 import cloud.problem.VM;
-import cloud.problem.VMChromosome;
 
 public class RandomCloudInitializer implements Initialization {
 
@@ -86,29 +85,24 @@ public class RandomCloudInitializer implements Initialization {
 
 		// Print each individual
 		for (PMChromosome pm : cloud.getPMGenes()) {
-			
-			
+
 			vmIds = "";
 			pmId = Integer.toString(pmCounter);
 
-			ArrayList<VMChromosome> vmChromosome = pm.getGene();
+			vmCounter = 1;
 
-			for (VMChromosome chromosome : vmChromosome) {
-				vmCounter = 1;
-				
-				for (VM vm : chromosome.getGene()) {
-					vmIds = vmIds + Integer.toString(vmCounter) + delimiter1
-							+ Integer.toString(vm.getMips()) + delimiter2;
-					vmCounter++;
-				}
-
-				vmIds = vmIds + delimiter2;
+			for (VM vm : pm.getGene()) {
+				vmIds = vmIds + Integer.toString(vmCounter) + delimiter1
+						+ Integer.toString(vm.getMips()) + delimiter2;
+				vmCounter++;
 			}
+
+			vmIds = vmIds + delimiter2;
 
 			candidate = candidate + delimiter1 + pmId + space + delimiter1
 					+ Integer.toString(pm.getMips()) + delimiter2 + space
 					+ delimiter1 + vmIds + space + delimiter2 + delimiter3;
-			
+
 			pmCounter++;
 
 		}

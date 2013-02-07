@@ -22,7 +22,6 @@ public class CloudChromosomeVariable implements Variable {
 	 */
 	private static final long serialVersionUID = 4220606602150453469L;
 
-
 	private ArrayList<PMChromosome> gene; // lists all PM sub-genes.
 
 	/**
@@ -57,7 +56,7 @@ public class CloudChromosomeVariable implements Variable {
 		int cardinality = 0;
 		int remainingVMs = numberOfVMs;
 		int lastGene = 0;
-		ArrayList<VMChromosome> vmChromosomeList;
+		ArrayList<VM> vmList;
 		ArrayList<PMChromosome> pmChromosomeList = new ArrayList<PMChromosome>();
 
 		while (remainingVMs > 0) {
@@ -65,15 +64,11 @@ public class CloudChromosomeVariable implements Variable {
 			// Number of VMs to be created
 			cardinality = PRNG.nextInt(1, remainingVMs);
 
-			vmChromosomeList = new ArrayList<VMChromosome>();
-			// Make a chromosome containing the VMs.
-			VMChromosome vmChromosome = new VMChromosome( lastGene,
-					cardinality, mipsCapacity);
-			vmChromosomeList.add(vmChromosome);
+			vmList = new ArrayList<VM>();
 
 			// Create PMChromosome to host VMChromosome
-			PMChromosome pmChromosome = new PMChromosome( 
-					mipsCapacity, vmChromosomeList);
+			PMChromosome pmChromosome = new PMChromosome(mipsCapacity, vmList);
+			pmChromosome.initVMs(lastGene, cardinality, mipsCapacity);
 
 			pmChromosomeList.add(pmChromosome);
 

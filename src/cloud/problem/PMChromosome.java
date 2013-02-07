@@ -3,6 +3,8 @@ package cloud.problem;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.moeaframework.core.PRNG;
+
 /**
  * This class depicts a PM.
  * 
@@ -22,7 +24,7 @@ public class PMChromosome implements Serializable {
 
 	private int mips; // Capacity.
 
-	private ArrayList<VMChromosome> gene;
+	private ArrayList<VM> gene; // lists all VMs.
 
 	/**
 	 * Constructor.
@@ -31,17 +33,17 @@ public class PMChromosome implements Serializable {
 	 * @param pmSubGene
 	 * @param vmSubGene
 	 */
-	public PMChromosome(int mips, ArrayList<VMChromosome> gene) {
+	public PMChromosome(int mips, ArrayList<VM> gene) {
 
 		this.mips = mips;
 		this.setGene(gene);
 	}
 
-	public void setGene(ArrayList<VMChromosome> gene) {
+	public void setGene(ArrayList<VM> gene) {
 		this.gene = gene;
 	}
 
-	public ArrayList<VMChromosome> getGene() {
+	public ArrayList<VM> getGene() {
 		return gene;
 	}
 
@@ -51,6 +53,42 @@ public class PMChromosome implements Serializable {
 
 	public void setMips(int mips) {
 		this.mips = mips;
+	}
+
+	/**
+	 * Calculate free MIPS capacity within this PMChromosome.
+	 * 
+	 * @return free MIPS.
+	 */
+	public int calculateFreeMIPS() {
+		int totalUsedMIPS = 0;
+
+		for (VM vm : this.gene) {
+			totalUsedMIPS += vm.getMips();
+		}
+
+		return (this.mips - totalUsedMIPS);
+	}
+
+	public void initVMs(int lastGene, int size, int maxMipsSize) {
+
+		int freeMips = maxMipsSize;
+		int requiredMips = 0;
+
+		ArrayList<VM> vmlist = new ArrayList<VM>();
+
+		// Each VM may have different MIPS capabilities.
+		for (int i = lastGene + 1; i <= lastGene + size; i++) {
+
+			requiredMips = PRNG.nextInt(0, freeMips);
+
+			vmlist.add(new VM(requiredMips));
+
+			freeMips = freeMips - requiredMips;
+		}
+
+		this.gene = vmlist;
+
 	}
 
 }
